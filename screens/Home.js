@@ -3,6 +3,7 @@ import {StyleSheet, View, Image, Text, TouchableOpacity, FlatList} from 'react-n
 import LinearGradient from 'react-native-linear-gradient';
 
 import {images, icons, COLORS, FONTS, SIZES} from '../constants';
+
 const OptionItem = ({bgColor, icon, label, onPress}) => {
     return (
         <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}} onPress={onPress}>
@@ -36,7 +37,61 @@ const OptionItem = ({bgColor, icon, label, onPress}) => {
     );
 };
 
-const Home = () => {
+const Home = ({navigation}) => {
+    // Dummy Data
+    const [destinations, setDestinations] = React.useState([
+        {
+            id: 0,
+            name: 'Ski Villa',
+            img: images.skiVilla,
+        },
+        {
+            id: 1,
+            name: 'Climbing Hills',
+            img: images.climbingHills,
+        },
+        {
+            id: 2,
+            name: 'Frozen Hills',
+            img: images.frozenHills,
+        },
+        {
+            id: 3,
+            name: 'Beach',
+            img: images.beach,
+        },
+    ]);
+
+    // Render
+
+    function renderDestinations(item, index) {
+        var destinationStyle = {};
+
+        if (index == 0) {
+            destinationStyle = {marginLeft: SIZES.padding};
+        }
+
+        return (
+            <TouchableOpacity
+                style={{justifyContent: 'center', marginHorizontal: SIZES.base, ...destinationStyle}}
+                onPress={() => {
+                    navigation.navigate('DestinationDetail');
+                }}>
+                <Image
+                    source={item.img}
+                    resizeMode="cover"
+                    style={{
+                        width: SIZES.width * 0.28,
+                        height: '82%',
+                        borderRadius: 15,
+                    }}
+                />
+
+                <Text style={{marginTop: SIZES.base / 2, ...FONTS.h4}}>{item.name}</Text>
+            </TouchableOpacity>
+        );
+    }
+
     return (
         <View style={styles.container}>
             {/* Banner */}
@@ -51,6 +106,7 @@ const Home = () => {
                     }}
                 />
             </View>
+
             {/* Options */}
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <View style={{flexDirection: 'row', marginTop: SIZES.padding, paddingHorizontal: SIZES.base}}>
@@ -87,6 +143,7 @@ const Home = () => {
                         }}
                     />
                 </View>
+
                 <View style={{flexDirection: 'row', marginTop: SIZES.radius, paddingHorizontal: SIZES.base}}>
                     <OptionItem
                         icon={icons.bed}
@@ -122,8 +179,18 @@ const Home = () => {
                     />
                 </View>
             </View>
-            {/* Desc */}
-            <View style={{flex: 1}}></View>
+
+            {/* Destination */}
+            <View style={{flex: 1}}>
+                <Text style={{marginTop: SIZES.base, marginHorizontal: SIZES.padding, ...FONTS.h2}}>Destination</Text>
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={destinations}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({item, index}) => renderDestinations(item, index)}
+                />
+            </View>
         </View>
     );
 };
@@ -141,6 +208,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+
         elevation: 5,
     },
 });

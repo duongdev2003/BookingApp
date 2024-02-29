@@ -1,14 +1,23 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
 import {images, COLORS, FONTS, SIZES} from '../constants';
 
 const Onboarding = ({navigation}) => {
     // Render
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Image source={images.onboardingImage} resizeMode="contain" style={{width: '100%', height: '100%'}} />
+                <Image
+                    source={images.onboardingImage}
+                    resizeMode="contain"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                />
             </View>
 
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -19,6 +28,7 @@ const Onboarding = ({navigation}) => {
                         culinary.
                     </Text>
                 </View>
+
                 <TouchableOpacity
                     style={[
                         styles.shadow,
@@ -41,7 +51,7 @@ const Onboarding = ({navigation}) => {
                         }}
                         colors={['#46aeff', '#5884ff']}
                         start={{x: 0, y: 0}}
-                        end={{x: 1, y: 1}}>
+                        end={{x: 1, y: 0}}>
                         <Text style={{color: COLORS.white, ...FONTS.h3}}>Start !</Text>
                     </LinearGradient>
                 </TouchableOpacity>
@@ -63,7 +73,9 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+
         elevation: 5,
     },
 });
+
 export default Onboarding;
