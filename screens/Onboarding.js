@@ -3,7 +3,7 @@ import {StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity} from 'rea
 import LinearGradient from 'react-native-linear-gradient';
 import {images, COLORS, FONTS, SIZES} from '../constants';
 
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
     // Render
     return (
         <SafeAreaView style={styles.container}>
@@ -30,7 +30,7 @@ const Onboarding = () => {
                             justifyContent: 'center',
                         },
                     ]}
-                    onPress={() => console.log('Button pressed')}>
+                    onPress={() => navigation.navigate('Home')}>
                     <LinearGradient
                         style={{
                             height: '100%',
